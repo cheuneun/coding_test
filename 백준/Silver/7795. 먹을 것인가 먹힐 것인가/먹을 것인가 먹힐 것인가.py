@@ -1,27 +1,29 @@
 import sys
 input = sys.stdin.readline
 
-line = input().strip()
-if line:
-  T = int(line)
-  for i in range(T):
-    N,M = map(int,input().split())
-    A = list(map(int,input().split()))
-    B = list(map(int,input().split()))
+T = int(input())
 
-    B.sort()
+for _ in range(T):
+    N, M = map(int, input().split())
+    A = list(map(int, input().split()))
+    B = list(map(int, input().split()))
+
+    B.sort()  # 반드시 필요
 
     count = 0
+
     for a in A:
-      start = 0
-      end = M - 1
+        left = 0
+        right = M - 1
 
-      while start <= end:
-        mid = (start+end)//2
-        if B[mid] >= a:
-          end = mid - 1
-        else:
-          start = mid + 1
+        while left <= right:
+            mid = (left + right) // 2
 
-      count += end + 1
+            if B[mid] < a:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        count += right + 1   # 핵심
+
     print(count)
